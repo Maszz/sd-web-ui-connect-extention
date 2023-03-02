@@ -1,7 +1,7 @@
 from smb.SMBConnection import SMBConnection
 from io import BytesIO 
 from BaseConnector import BaseConnector
-from PIL.Image import Image
+from PIL import Image, ImageFont, ImageDraw, PngImagePlugin,ExifTags
 from uuid import UUID
 
 class SMBConector(BaseConnector):
@@ -20,7 +20,6 @@ class SMBConector(BaseConnector):
         :param string save_dir: directory name to save images in server
         """
         
-
         self.ip = ip
         self.port = port
         self.username = username
@@ -33,13 +32,18 @@ class SMBConector(BaseConnector):
         self.dir_exist_or_create_dir()
       
 
-    def store_file(self, name:str, image:Image):
+    def store_file(self, name:str, image:Image, png_info:dict):
+        
         with BytesIO() as output:
-            image.save(output, format='png')
+            pnginfo_data = PngImagePlugin.PngInfo()
+            for k, v in png_info.items():
+                pnginfo_data.add_text(k, str(v))
+            image.save(output, format='png',quality=100,pnginfo=pnginfo_data)
             image_bytes = output.getvalue()
             name_splited = name.split('/')[-1]
-            print(f'Uploading {name_splited} to {self.save_dir}')
-            self.smb.storeFile(self.service_name,f'{self.save_dir}/{name_splited}',BytesIO(image_bytes))
+            sub_dir = name.split('/')[1]
+            print(f'Uploading {name_splited} to {self.save_dir}/{sub_dir}')
+            self.smb.storeFile(self.service_name,f'{self.save_dir}/{sub_dir}/{name_splited}',BytesIO(image_bytes))
 
     def before_unload(self):
         self.smb.close()
@@ -49,5 +53,10 @@ class SMBConector(BaseConnector):
             if i.filename == self.save_dir:
                 return 
         self.smb.createDirectory(self.service_name,self.save_dir) 
+        self.smb.createDirectory(self.service_name,f'{self.save_dir}/txt2img-images')
+        self.smb.createDirectory(self.service_name,f'{self.save_dir}/txt2img-grids')
+        self.smb.createDirectory(self.service_name,f'{self.save_dir}/img2img-images')
+        self.smb.createDirectory(self.service_name,f'{self.save_dir}/img2img-grids')
+        self.smb.createDirectory(self.service_name,f'{self.save_dir}/extras-images')
 
     

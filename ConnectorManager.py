@@ -41,9 +41,9 @@ class ConectorManager:
     def create_dropbox_connector():
         raise NotImplementedError
     
-    def save_image(self, image:Type[Image], name:str):
+    def save_image(self, image:Type[Image], name:str, png_info:dict):
         for connector in self.connector:
-            connector.store_file(name, image)
+            connector.store_file(name, image, png_info)
 
 
     def before_unload(self):

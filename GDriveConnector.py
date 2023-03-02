@@ -8,11 +8,14 @@ import json
 import requests
 import os
 from modules import scripts
-
+from PIL import PngImagePlugin
 class GDriveConnector(BaseConnector):
+    """
+    Support only one folder
+    """
 
     def __init__(self:str,client_secret_path:str, dir_name:str='sd_web_ui'):
-        
+
         self.gauth = GoogleAuth('settings.yaml')
         self.gauth.DEFAULT_SETTINGS['client_config_backend'] = 'file'
         self.gauth.DEFAULT_SETTINGS['client_config_file'] = client_secret_path
@@ -39,11 +42,14 @@ class GDriveConnector(BaseConnector):
         self.dir_name = dir_name
         self.dir_id = self.get_gdrive_folder_id()
 
-    def store_file(self, name:str, image:Image):        
+    def store_file(self, name:str, image:Image,png_info:dict):        
         if self.gauth.credentials.access_token is None:
             return
         with BytesIO() as output:
-            image.save(output, format='png')
+            pnginfo_data = PngImagePlugin.PngInfo()
+            for k, v in png_info.items():
+                pnginfo_data.add_text(k, str(v))
+            image.save(output, format='png',quality=100,pnginfo=pnginfo_data)
             image_bytes = output.getvalue()
             self.save_image_request(image_bytes,name)
                 

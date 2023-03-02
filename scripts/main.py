@@ -1,7 +1,8 @@
-from modules import script_callbacks, ui_extra_networks, extra_networks, shared
+from modules import script_callbacks, ui_extra_networks, extra_networks, shared,extras,images
 from modules.script_callbacks import ImageSaveParams
 from typing import Callable,cast,Type
-from PIL.Image import Image
+from PIL.Image import Image,open
+from PIL import ExifTags
 from io import BytesIO
 from SMBConnector import SMBConector
 from ConnectorManager import ConectorManager
@@ -31,8 +32,6 @@ def setup_options():
 
 }))
 
-# def setup_hooks(callback :Callable[[ImageSaveParams], None]):
-#     script_callbacks.on_before_image_saved(save_image_callback)
 def on_app_started(gradio:Blocks,fastapi:FastAPI):
     """
     Need to authen first when app started for get access token.
@@ -43,7 +42,6 @@ def on_app_started(gradio:Blocks,fastapi:FastAPI):
     
     pass
 
-    
 
 def save_image_callback(params: ImageSaveParams):
 
@@ -51,8 +49,7 @@ def save_image_callback(params: ImageSaveParams):
     setup_connectors(manager,config)
     image = cast(Type[Image],params.image)  # ImageSaveParams not provide type to its this made for support type hinting
     image_name = params.filename 
-    manager.save_image(image,image_name)
-
+    manager.save_image(image,image_name,params.pnginfo)
     manager.before_unload()
 
     
@@ -72,7 +69,9 @@ def setup_connectors(manager:ConectorManager,config:ConfigObject):
     
 manager = ConectorManager()
 config = ConfigObject()
-setup_options()
+
+
+script_callbacks.on_ui_settings(setup_options)
 script_callbacks.on_app_started(on_app_started)
 script_callbacks.on_before_image_saved(save_image_callback)
  
