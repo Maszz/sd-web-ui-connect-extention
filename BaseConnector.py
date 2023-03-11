@@ -1,9 +1,9 @@
 import abc
-from typing import TYPE_CHECKING, Dict, List, Tuple, Type
+from typing import Dict, List, Tuple, Type
+
+from numpy import ndarray
 from PIL.Image import Image
 
-if TYPE_CHECKING:
-    from numpy import ndarray
 
 class BaseConnector(metaclass=abc.ABCMeta):
 
@@ -24,7 +24,7 @@ class BaseConnector(metaclass=abc.ABCMeta):
     """
 
     @abc.abstractmethod
-    def store_file(self, name:str, image:Type[Image],png_info:dict)->None:
+    def store_file(self, name: str, image: Type[Image], png_info: dict) -> None:
         """
         Perform saving the image file with the given name and png_info to the file system.
 
@@ -43,12 +43,12 @@ class BaseConnector(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def before_unload(self)->None:
+    def before_unload(self) -> None:
         """Perform a cleaning function for this connector."""
         pass
 
     @abc.abstractmethod
-    def traverse(self,sub_dir:str)->List[str]:
+    def traverse(self, sub_dir: str) -> List[str]:
         """
         List all files in a directory.
 
@@ -60,7 +60,7 @@ class BaseConnector(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def download(self,name:str)->Tuple[ndarray,Dict[str,str]]:
+    def download(self, name: str) -> Tuple[ndarray, Dict[str, str]]:
         """
         Download a file from remote host.
 
@@ -75,4 +75,3 @@ class BaseConnector(metaclass=abc.ABCMeta):
             A tuple containing the image data and the png_info of the image file.
         """
         pass
-
