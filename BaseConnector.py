@@ -1,9 +1,9 @@
 import abc
 from typing import TYPE_CHECKING, Dict, List, Tuple, Type
+from PIL.Image import Image
 
 if TYPE_CHECKING:
     from numpy import ndarray
-    from PIL.Image import Image
 
 class BaseConnector(metaclass=abc.ABCMeta):
 
