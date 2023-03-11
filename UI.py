@@ -312,7 +312,7 @@ class UI:
         )
         refetch.click(
             fn=self.get_image_page,
-            inputs=[dirname_box, page_index, filenames],
+            inputs=[dirname_box, page_index],
             outputs=[
                 history_gallery,
                 page_index,
