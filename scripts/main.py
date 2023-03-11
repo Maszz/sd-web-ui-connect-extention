@@ -8,22 +8,17 @@ This file seperated into 2 parts:
     3. register the callbacks hook.
 """
 import warnings
-from typing import TYPE_CHECKING, Type, cast
+from typing import Type, cast
 
+from fastapi import FastAPI
+from gradio import Blocks
 from modules import script_callbacks, shared
+from modules.script_callbacks import ImageSaveParams
 from PIL.Image import Image
 
 from ConfigObject import ConfigObject
 from ConnectorManager import ConnectorManager
 from UI import UI
-
-if TYPE_CHECKING:
-    from fastapi import FastAPI
-    from gradio import Blocks
-    from modules.script_callbacks import ImageSaveParams
-
-
-
 
 warnings.warn("CryptographyDeprecationWarning", DeprecationWarning)
 
