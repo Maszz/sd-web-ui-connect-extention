@@ -170,7 +170,7 @@ class UI:
         elif tab == "img2img-grids":
             dir_name = opts.outdir_img2img_grids.split("/")[-1]
         else:
-            dir_name = opts.outdir_extras.split("/")[-1]
+            dir_name = opts.outdir_extras_samples.split("/")[-1]
 
         with gr.Row(elem_id=tab + "_connect_images_browser"):
             with gr.Column():
