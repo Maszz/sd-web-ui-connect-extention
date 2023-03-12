@@ -17,12 +17,10 @@ https://github.com/Maszz/sd-web-ui-connect-extention.git
     - SMB Connection
     - SFTP Connection
     - Remote Browser (Support only smb and sftp) 
-        Inspired from [stable-diffusion-webui-images-browser](https://github.com/yfszzx/stable-diffusion-webui-images-browser)
-        by [@yfszzx](https://github.com/yfszzx)
 
+Remote Browser Inspired from [stable-diffusion-webui-images-browser](https://github.com/yfszzx/stable-diffusion-webui-images-browser) by [@yfszzx](https://github.com/yfszzx)
 
-
-**When you want to connect to new google oauth account you need to delete credentials.json in extensions folder
+When you want to connect to new google oauth account you need to delete credentials.json in extensions folder
 by default this extension try to find access token in credentials.json file(**Don't exposed your credentials.json)
 
 # Known Issues
@@ -42,4 +40,3 @@ sudo ln -s /opt/homebrew/opt/libffi/lib/libffi.8.dylib /usr/local/lib/libffi.8.d
 
 # Authors
 - [Maszz](https://github.com/Maszz)
-sd-web-ui-connect-extention
