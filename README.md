@@ -16,9 +16,19 @@ https://github.com/Maszz/sd-web-ui-connect-extention.git
     - Gdrive With Oauth authentication(not supported service account)
     - SMB Connection
     - SFTP Connection
+    - Remote Browser (Support only smb and sftp) 
+        Inspired from [stable-diffusion-webui-images-browser](https://github.com/yfszzx/stable-diffusion-webui-images-browser)
+        by [@yfszzx](https://github.com/yfszzx)
 
-When you want to connect to new google oauth account you need to delete credentials.json in extensions folder
+
+
+**When you want to connect to new google oauth account you need to delete credentials.json in extensions folder
 by default this extension try to find access token in credentials.json file(**Don't exposed your credentials.json)
+
+# Known Issues
+
+- Long gallery load time (Seem caused by gradio)
+
 
 # Troubleshooting
 for mac user that stuck with can't find /usr/lib/libffi.8.dylib when you install libffi from homebrew, homebrew install libffi in `/opt/homebrew/opt/libffi/lib/libffi.8.dylib`, but python find it from /usr/lib/libffi.8.dylib you need to link the binary from `/opt/homebrew/opt/libffi/lib/libffi.8.dylib` to `/usr/lib/libffi.8.dylib`.(if SIP disable,you can link it direcly)
