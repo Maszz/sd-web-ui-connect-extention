@@ -64,7 +64,6 @@ class UI:
         self.selected_type = "SMB"
         self.selected_index = 0
         self.connector = None
-        self.connection_type = "SMB"
         self.get_connetor("SMB", 1)
         self.img_lst = []
 
@@ -245,7 +244,8 @@ class UI:
                             connector_selector_state = gr.Number(
                                 value=1, label="connector_selector_state"
                             )  # use as dispatcher for pages change
-                            renew_connect = gr.Number(value=1, label="renew_connect")
+                            renew_connect = gr.Number(
+                                value=1, label="renew_connect")
                             max_page_index_num = gr.Number(
                                 value=1, label="max_page_index_box"
                             )
@@ -391,7 +391,8 @@ class UI:
         print("max_page_index: ", max_page_index)
 
         # actual images to show
-        image_list_path = filenames[idx_frm : idx_frm + self.num_images_per_page]
+        image_list_path = filenames[idx_frm: idx_frm +
+                                    self.num_images_per_page]
 
         image_list = [self.connector.download(img) for img in image_list_path]
         img_data = [img[0] for img in image_list]
