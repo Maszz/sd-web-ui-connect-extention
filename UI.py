@@ -82,6 +82,9 @@ class UI:
         if v == "SMB":
             config = self.config.get_smb_config()
             selected_config = config[self.selected_index]
+            if(config is None):
+                self.connector = None
+                return -s
             self.connector = self.manager._ui_get_smb_connector(
                 selected_config[0],
                 selected_config[1],
@@ -95,6 +98,9 @@ class UI:
             )
         elif v == "SFTP":
             config = self.config.get_sftp_config()
+            if(config is None):
+                self.connector = None
+                return -s
             selected_config = config[self.selected_index]
             self.connector = self.manager._ui_get_sftp_connector(
                 selected_config[0],
