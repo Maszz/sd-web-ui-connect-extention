@@ -67,7 +67,7 @@ class UI:
         self.get_connetor("SMB", 1)
         self.img_lst = []
 
-    def get_connetor(self, v: str, s: int) -> int:
+    def get_connetor(self, v: str, s: int, init: str = False) -> int:
         """
         Perform the connection to the remote host to selected connector.
 
@@ -79,6 +79,8 @@ class UI:
             state for trigger gradio update.
         """
         print("get_connetor")
+        if init:
+            self.connector = None
         if v == "SMB":
             config = self.config.get_smb_config()
             selected_config = config[self.selected_index]
