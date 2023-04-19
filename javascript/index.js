@@ -3,7 +3,7 @@ var images_history_click_image = function (bnt, i) {
   var buttons = images_history_get_parent_by_tagname(
     bnt,
     "DIV"
-  ).querySelectorAll(".gallery-item");
+  ).querySelectorAll(".thumbnail-item");
   var index = -1;
   var i = 0;
   buttons.forEach(function (e) {
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
       for (var i in images_history_tab_list) {
         let tabname = images_history_tab_list[i];
         var buttons = gradioApp().querySelectorAll(
-          "#" + tabname + "_connect_images_browser .gallery-item"
+          "#" + tabname + "_connect_images_browser .thumbnail-item"
         );
         buttons.forEach(function (bnt, index) {
           bnt.addEventListener(
