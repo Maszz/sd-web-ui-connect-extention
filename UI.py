@@ -64,8 +64,10 @@ class UI:
         self.selected_type = "SMB"
         self.selected_index = 0
         self.connector = None
-        self.get_connetor("SMB", 1)
         self.img_lst = []
+
+    def on_load(self):
+        self.get_connetor("SMB", 1)
 
     def get_connetor(self, v: str, s: int, init: str = False) -> int:
         """
@@ -84,7 +86,7 @@ class UI:
         if v == "SMB":
             config = self.config.get_smb_config()
             selected_config = config[self.selected_index]
-            if(config is None):
+            if config is None:
                 self.connector = None
                 return -s
             self.connector = self.manager._ui_get_smb_connector(
@@ -100,7 +102,7 @@ class UI:
             )
         elif v == "SFTP":
             config = self.config.get_sftp_config()
-            if(config is None):
+            if config is None:
                 self.connector = None
                 return -s
             selected_config = config[self.selected_index]
@@ -252,8 +254,7 @@ class UI:
                             connector_selector_state = gr.Number(
                                 value=1, label="connector_selector_state"
                             )  # use as dispatcher for pages change
-                            renew_connect = gr.Number(
-                                value=1, label="renew_connect")
+                            renew_connect = gr.Number(value=1, label="renew_connect")
                             max_page_index_num = gr.Number(
                                 value=1, label="max_page_index_box"
                             )
@@ -399,8 +400,7 @@ class UI:
         print("max_page_index: ", max_page_index)
 
         # actual images to show
-        image_list_path = filenames[idx_frm: idx_frm +
-                                    self.num_images_per_page]
+        image_list_path = filenames[idx_frm : idx_frm + self.num_images_per_page]
 
         image_list = [self.connector.download(img) for img in image_list_path]
         img_data = [img[0] for img in image_list]
